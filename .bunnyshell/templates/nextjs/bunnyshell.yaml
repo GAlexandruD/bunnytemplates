@@ -1,0 +1,33 @@
+kind: Environment
+name: NextJS boilerplate
+type: primary
+environmentVariables:
+  redis: redis
+  redis_pass: safePassword
+components:
+  - kind: Application
+    name: next-app
+    gitRepo: "https://github.com/GAlexandruD/bunnytemplates.git"
+    gitBranch: main
+    gitApplicationPath: components/nextjs
+    dockerCompose:
+      build:
+        context: ./components/nextjs
+        dockerfile: next-app/dev.Dockerfile
+        args:
+          ENV_VARIABLE: production_server_only_variable
+          NEXT_PUBLIC_ENV_VARIABLE: production_public_variable
+      ports:
+        - "3000:3000"
+      restart: always
+      environment:
+        NEXT_PUBLIC_BUNNY_LINK: "next-app-{{ env.base_domain }}"
+    hosts:
+      - hostname: "next-app-{{ env.base_domain }}"
+        path: /
+        servicePort: 3000
+
+volumes:
+  - name: data-volume
+    size: 1Gi
+    type: disk

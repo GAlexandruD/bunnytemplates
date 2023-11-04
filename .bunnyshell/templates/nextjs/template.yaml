@@ -1,0 +1,11 @@
+name: NextJS
+description: This is a boilerplate for creating a new environment using NextJS.
+tags: [nextjs, typescript]
+icons: [nextjs, typescript]
+stack:
+  packages:
+    - name: NextJS
+      version: "13"
+    - name: Typescript
+      version: "4.4"
+discoverable: true
